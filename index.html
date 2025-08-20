@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arun Chandran V K - Python/Django Developer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #764ba2;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #764ba2;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none"><polygon fill="white" points="1000,100 1000,0 0,100"/></svg>') no-repeat bottom;
+            background-size: 100% 50px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 2rem;
+            object-fit: cover;
+            animation: fadeInUp 1s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.05);
+        }
+
+        .profile-placeholder {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            animation: fadeInUp 1s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero .description {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            opacity: 0.8;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .cta-button:hover {
+            background: white;
+            color: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Main Content */
+        .main-content {
+            background: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section {
+            padding: 80px 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .skill-category {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .skill-category h3 {
+            color: #764ba2;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Experience Section */
+        .experience-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .experience-item {
+            position: relative;
+            margin-bottom: 3rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-left: 2rem;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 2rem;
+            width: 12px;
+            height: 12px;
+            background: #764ba2;
+            border-radius: 50%;
+        }
+
+        .job-title {
+            color: #764ba2;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .job-company {
+            color: #666;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .job-achievements {
+            list-style: none;
+        }
+
+        .job-achievements li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .job-achievements li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #764ba2;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .project-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-description {
+            margin-bottom: 1rem;
+            color: #666;
+        }
+
+        .project-features {
+            list-style: none;
+        }
+
+        .project-features li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+            color: #333;
+        }
+
+        .project-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #764ba2;
+            font-weight: bold;
+        }
+
+        /* Education & Certifications */
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .education-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .education-title {
+            color: #764ba2;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-institution {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-year {
+            color: #333;
+            font-weight: 500;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+        }
+
+        .contact .section-title {
+            color: white;
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-button:hover {
+            background: white;
+            color: #764ba2;
+        }
+
+        /* Contact Form Styles */
+        .contact-form-container {
+            max-width: 600px;
+            margin: 3rem auto 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            text-align: center;
+        }
+
+        .form-group {
+            text-align: center;
+            margin-bottom: 15px;
+            }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid transparent;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            color: #333;
+        }
+
+        .form-textarea {
+            border-radius: 25px;
+            resize: vertical;
+            min-height: 120px;
+            padding: 1.5rem;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.8);
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: #666;
+            opacity: 0.8;
+        }
+
+        .form-submit {
+            background: #007bff;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .form-submit:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-submit:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        /* Success/Error Messages */
+        .form-message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 15px;
+            font-weight: 500;
+            text-align: center;
+            display: none;
+        }
+
+        .form-message.success {
+            background: rgba(46, 204, 113, 0.2);
+            border: 2px solid rgba(46, 204, 113, 0.5);
+            color: #2ecc71;
+        }
+
+        .form-message.error {
+            background: rgba(231, 76, 60, 0.2);
+            border: 2px solid rgba(231, 76, 60, 0.5);
+            color: #e74c3c;
+        }
+
+        /* Form Animation */
+        .form-group {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(4) { animation-delay: 0.4s; }
+        .form-group:nth-child(5) { animation-delay: 0.5s; }
+
+        /* Loading state */
+        .form-submit.loading {
+            color: transparent;
+            pointer-events: none;
+        }
+
+        .form-submit.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid transparent;
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .experience-timeline {
+                padding-left: 1rem;
+            }
+
+            .experience-item {
+                margin-left: 1rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form-container {
+                margin: 2rem 20px 0;
+                padding: 2rem;
+            }
+
+            .form-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">Arun Chandran V K</div>
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero" id="about">
+        <div class="container">
+            <div class="hero-content">
+                <!-- Profile Photo - Replace src with your actual photo -->
+                <div class="profile-placeholder">👨‍💻</div>
+                <!-- Uncomment below and add your photo URL -->
+                <!-- <img src="your-photo-url.jpg" alt="Arun Chandran V K" class="profile-photo"> -->
+                
+                <h1>Arun Chandran V K</h1>
+                <div class="subtitle">Python/Django Developer</div>
+                <div class="description">
+                    Motivated and detail-oriented developer with 2+ years of professional experience in building scalable web applications and REST APIs. Skilled in backend development, database design, and integrations. Passionate about writing clean, maintainable code and continuously learning new technologies.
+                </div>
+                <a href="#contact" class="cta-button">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <section class="section" id="skills">
+            <div class="container">
+                <h2 class="section-title">🛠️ Skills & Technologies</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Languages</h3>
+                        <div class="skills-list">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">JavaScript</span>
+                            <span class="skill-tag">HTML/CSS</span>
+                            <span class="skill-tag">C/C++</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Frameworks & Libraries</h3>
+                        <div class="skills-list">
+                            <span class="skill-tag">Django</span>
+                            <span class="skill-tag">Django REST Framework</span>
+                            <span class="skill-tag">Flask</span>
+                            <span class="skill-tag">Angular</span>
+                            <span class="skill-tag">Bootstrap</span>
+                            <span class="skill-tag">Celery</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Databases & Tools</h3>
+                        <div class="skills-list">
+                            <span class="skill-tag">PostgreSQL</span>
+                            <span class="skill-tag">MySQL</span>
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">Docker</span>
+                            <span class="skill-tag">Linux</span>
+                            <span class="skill-tag">Postman</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Architecture & AI</h3>
+                        <div class="skills-list">
+                            <span class="skill-tag">RESTful APIs</span>
+                            <span class="skill-tag">MVC Pattern</span>
+                            <span class="skill-tag">OpenAI API</span>
+                            <span class="skill-tag">Swagger</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="experience">
+            <div class="container">
+                <h2 class="section-title">💼 Work Experience</h2>
+                <div class="experience-timeline">
+                    <div class="experience-item">
+                        <div class="job-title">Junior Developer</div>
+                        <div class="job-company">Luminar Technolab | Feb 2024 – Present | Kochi, India</div>
+                        <ul class="job-achievements">
+                            <li>Designed and developed robust web applications using Django and REST APIs</li>
+                            <li>Implemented modular architecture, improving maintainability</li>
+                            <li>Conducted peer code reviews, boosting performance and security</li>
+                            <li>Collaborated with teams via Git, delivering projects on time</li>
+                        </ul>
+                    </div>
+                    <div class="experience-item">
+                        <div class="job-title">Python Intern</div>
+                        <div class="job-company">Luminar Technohub | Aug 2023 – Jan 2024 | Kochi, India</div>
+                        <ul class="job-achievements">
+                            <li>Built backend modules and REST APIs with Django and DRF</li>
+                            <li>Worked on 3 client projects covering requirements, coding, and deployment</li>
+                            <li>Gained hands-on Agile, Git, and API integration experience</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="projects">
+            <div class="container">
+                <h2 class="section-title">🚀 Featured Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">📘</div>
+                            <div class="project-title">StudyApp - CRM</div>
+                        </div>
+                        <div class="project-content">
+                            <p class="project-description">Developed a CRM application for an educational institution to manage students, courses, and admissions.</p>
+                            <ul class="project-features">
+                                <li>Streamlined overall operations management</li>
+                                <li>Integrated scheduling and tracking workflows</li>
+                                <li>Built-in communication systems</li>
+                                <li>Student and course management</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">🌍</div>
+                            <div class="project-title">Trip Mate</div>
+                        </div>
+                        <div class="project-content">
+                            <p class="project-description">Travel Companion Finder - Connects travelers with trip creation & joining features.</p>
+                            <ul class="project-features">
+                                <li>WebSocket-based real-time group chat</li>
+                                <li>Trip creation and joining system</li>
+                                <li>Responsive UI for smooth experience</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <div class="project-header">
+                            <div class="project-icon">🎫</div>
+                            <div class="project-title">Event Manager</div>
+                        </div>
+                        <div class="project-content">
+                            <p class="project-description">Event Management Application - Event registration & attendance tracking system.</p>
+                            <ul class="project-features">
+                                <li>QR code entry for crowd control</li>
+                                <li>Online/spot registrations</li>
+                                <li>Admin panel with real-time status</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="education">
+            <div class="container">
+                <h2 class="section-title">🎓 Education & Certifications</h2>
+                <div class="education-grid">
+                    <div class="education-card">
+                        <div class="education-title">Bachelor of Computer Applications</div>
+                        <div class="education-institution">Pondicherry University</div>
+                        <div class="education-year">2019 – 2022 | CGPA: 7.78</div>
+                    </div>
+                    <div class="education-card">
+                        <div class="education-title">Higher Secondary Education</div>
+                        <div class="education-institution">GVHSS</div>
+                        <div class="education-year">2017 – 2019 | 79%</div>
+                    </div>
+                    <div class="education-card">
+                        <div class="education-title">Python – Web Development Expert</div>
+                        <div class="education-institution">National Council for Technology and Training</div>
+                        <div class="education-year">Certification</div>
+                    </div>
+                    <div class="education-card">
+                        <div class="education-title">Python Django Full Stack Development</div>
+                        <div class="education-institution">Luminar Technolab</div>
+                        <div class="education-year">Certification</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section contact" id="contact">
+            <div class="container">
+                <h2 class="section-title">📧 Let's Connect</h2>
+                <div class="contact-content">
+                    <p class="contact-info">
+                        Ready to collaborate on exciting projects? Let's discuss how we can work together to build amazing web applications!
+                    </p>
+                    <div class="contact-info">
+                        <strong>Location:</strong> Kochi, India<br>
+                        <strong>Experience:</strong> 2+ Years in Python/Django Development
+                    </div>
+                    <a href="mailto:arunchandranvk@example.com" class="contact-button">📧 Send Email</a>
+                    <a href="https://www.linkedin.com/in/arun-chandran-v-k" class="contact-button">💼 LinkedIn</a>
+                    <a href="https://www.github.com/Arunchandranvk" class="contact-button">🐙 GitHub</a>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form-container">
+                    <h3 class="form-title">Send Me a Message</h3>
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" class="form-input" placeholder="Your Full Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" class="form-input" placeholder="Your Email Address" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="subject" name="subject" class="form-input" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" class="form-textarea" placeholder="Your Message" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="form-submit">
+                                Send Message
+                            </button>
+                        </div>
+
+                        <div id="formMessage" class="form-message"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
+    <script>
+        // Initialize EmailJS
+        (function() {
+            emailjs.init("UjFrunBHJRL4Tb1Cy"); // Replace with your actual Public Key
+        })();
+
+        // Form submission handler
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const submitBtn = form.querySelector('.form-submit');
+            const formMessage = document.getElementById('formMessage');
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.classList.add('loading');
+            
+            // Hide previous messages
+            formMessage.style.display = 'none';
+            
+            // Get form data
+            const formData = {
+                name: form.name.value,
+                email: form.email.value,
+                subject: form.subject.value,
+                message: form.message.value,
+                to_name: "Arun Chandran V K"
+            };
+
+            // Validate email
+            if (!isValidEmail(formData.from_email)) {
+                showMessage("Please enter a valid email address.", 'error');
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('loading');
+                return;
+            }
+
+            // Send email via EmailJS
+            emailjs.send("service_rp07chq", "template_nw50b4x", formData)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    showMessage(`Thank you, ${formData.from_name}! Your message has been sent successfully.`, 'success');
+                    form.reset();
+                })
+                .catch(function(error) {
+                    console.error('FAILED...', error);
+                    showMessage("There was an error sending your message. Please try again or contact me directly.", 'error');
+                })
+                .finally(function() {
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('loading');
+                });
+        });
+
+        // Show message function
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('formMessage');
+            messageDiv.textContent = text;
+            messageDiv.className = `form-message ${type}`;
+            messageDiv.style.display = 'block';
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        // Email validation function
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Navbar background change on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+                nav.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.95)';
+                nav.style.boxShadow = 'none';
+            }
+        });
+
+        // Add floating animation to skill tags
+        document.querySelectorAll('.skill-tag').forEach((tag, index) => {
+            tag.style.animationDelay = `${index * 0.1}s`;
+            tag.style.animation = 'fadeInUp 0.8s ease both';
+        });
+
+        // Add hover effect to project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add subtle parallax effect to hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Add typing effect to hero subtitle
+        const subtitle = document.querySelector('.hero .subtitle');
+        if (subtitle) {
+            const text = subtitle.textContent;
+            subtitle.textContent = '';
+            let i = 0;
+            
+            const typeWriter = () => {
+                if (i < text.length) {
+                    subtitle.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
+            };
+            
+            // Start typing effect after hero animation
+            setTimeout(typeWriter, 1500);
+        }
+
+        // Add intersection observer for form animations
+        const formObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const formGroups = entry.target.querySelectorAll('.form-group');
+                    formGroups.forEach((group, index) => {
+                        setTimeout(() => {
+                            group.style.opacity = '1';
+                            group.style.transform = 'translateY(0)';
+                        }, index * 100);
+                    });
+                }
+            });
+        }, { threshold: 0.1 });
+
+        const contactForm = document.querySelector('.contact-form-container');
+        if (contactForm) {
+            formObserver.observe(contactForm);
+        }
+
+        // Add floating particles background effect
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.cssText = `
+                position: fixed;
+                width: 4px;
+                height: 4px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: -1;
+                left: ${Math.random() * 100}vw;
+                top: 100vh;
+                animation: floatUp ${Math.random() * 3 + 2}s linear forwards;
+            `;
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 5000);
+        }
+
+        // Create particles periodically
+        setInterval(createParticle, 2000);
+
+        // Add CSS animation for floating particles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes floatUp {
+                to {
+                    transform: translateY(-100vh) translateX(${Math.random() * 200 - 100}px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
